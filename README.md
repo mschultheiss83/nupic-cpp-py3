@@ -4,7 +4,7 @@ With [nupic.cpp](https://github.com/htm-community/nupic.cpp).
 
 Currently missing:
 
-- date encoding
+- date encoding [original:nupic/encoders/date.py](https://github.com/numenta/nupic/blob/master/src/nupic/encoders/date.py)
 - SDR classification
 
 ## To Run:

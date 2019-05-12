@@ -1,6 +1,5 @@
 import csv
 import datetime
-import numpy
 import os
 import yaml
 
@@ -38,7 +37,7 @@ def runHotgym(numRecords):
   # encodingWidth = (timeOfDayEncoder.getWidth()
   #                  + weekendEncoder.getWidth()
   #                  + scalarEncoder.getWidth())
-  
+
   encodingWidth = scalarEncoder.size
 
   sp = SpatialPooler(
@@ -114,14 +113,16 @@ def runHotgym(numRecords):
       # activeColumns = numpy.zeros(spParams["columnCount"])
       activeColumns = SDR(spParams["columnCount"])
 
-      encodingIn = numpy.uint32(encoding.dense)
-      minicolumnsOut = numpy.uint32(activeColumns.dense)
+      # encodingIn = numpy.uint32(encoding.dense)
+      # minicolumnsOut = numpy.uint32(activeColumns.dense)
       # Execute Spatial Pooling algorithm over input space.
-      sp.compute(encodingIn, True, minicolumnsOut)
-      activeColumnIndices = numpy.nonzero(minicolumnsOut)[0]
+      # sp.compute(encodingIn, True, minicolumnsOut)
+      sp.compute(encoding, True, activeColumns)
+      # activeColumnIndices = numpy.nonzero(minicolumnsOut)[0]
 
       # Execute Temporal Memory algorithm over active mini-columns.
-      tm.compute(activeColumnIndices, learn=True)
+      # tm.compute(activeColumnIndices, learn=True)
+      tm.compute(activeColumns, learn=True)
 
       activeCells = tm.getActiveCells()
       print(len(activeCells))
